@@ -1,7 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import InputField from './components/InputField';
+import ResultsView from './components/ResultsView';
+import { useToxicityClassifier } from './hooks/useToxicityClassifier';
 
 const App = () => {
+  const model = useToxicityClassifier();
+  const [results, setResults] = useState(null);
+  const [inputReady, setInputReady] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+
+  useEffect(() => {
+    if (!model) return;
+    setInputReady(true);
+    model.classify(searchQuery).then(setResults);
+  }, [model, searchQuery]);
+
   return (
     <div className="container">
       <h1>Toxicity ML Model</h1>
@@ -12,7 +25,12 @@ const App = () => {
         </a>
       </p>
 
-      <InputField />
+      <InputField
+        setSearchQuery={setSearchQuery}
+        searchQuery={searchQuery}
+        inputReady={inputReady}
+      />
+      {results ? <ResultsView results={results} /> : null}
     </div>
   );
 };

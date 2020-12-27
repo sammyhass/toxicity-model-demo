@@ -1,0 +1,23 @@
+.Results {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-direction: column;
+}
+.Result {
+  width: 100%;
+  display: block;
+  margin-top: 20px;
+  display: flex;
+  border-bottom: 1px solid #333;
+  padding: 5px 5px;
+}
+
+.Result b {
+  width: 50%;
+  text-transform: capitalize;
+}
+.Result span {
+  width: 50%;
+  text-align: center;
+}
